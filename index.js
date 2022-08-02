@@ -22,7 +22,7 @@ document.getElementById("addBtn").addEventListener("click", () => {
   const input = document.getElementById("taskInput");
 
   if (!inputValue.trim()) {
-    alert("Incorrect value. Check if ");
+    alert("Incorrect value. Check if provided");
     input.value = null;
     return;
   }
@@ -39,6 +39,8 @@ document.getElementById("addBtn").addEventListener("click", () => {
 
 function deleteItem() {
   console.log(this.id);
+  arr = arr.filter((val) => val.id !== +this.id);
+  drawTaskList();
 }
 
 const drawTaskList = () => {
