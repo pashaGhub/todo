@@ -19,6 +19,13 @@ let arr = [
 
 document.getElementById("addBtn").addEventListener("click", () => {
   const inputValue = document.getElementById("taskInput").value;
+  const input = document.getElementById("taskInput");
+
+  if (!inputValue.trim()) {
+    alert("Incorrect value. Check if ");
+    input.value = null;
+    return;
+  }
 
   const newTask = {
     id: new Date().getTime(),
@@ -26,35 +33,47 @@ document.getElementById("addBtn").addEventListener("click", () => {
   };
 
   arr.push(newTask);
+  input.value = null;
   drawTaskList();
 });
+
+function deleteItem() {
+  console.log(this.id);
+}
 
 const drawTaskList = () => {
   const tasksList = document.getElementById("tasksList");
   tasksList.innerHTML = null;
-  arr.forEach((value) => {
+  arr.forEach((value, ind) => {
     //creating elements
-    const container = document.createElement("div");
     const myLi = document.createElement("li");
     const myInput = document.createElement("input");
     const myLabel = document.createElement("label");
+    const deleteBtn = document.createElement("button");
 
     //adding styles
-    myLi.className = "list-group-item";
-    myInput.className = "form-check-input me-1";
-    myLabel.className = "form-check-label";
+    myLi.className = "container list-group-item";
+    myInput.className = "form-check-input me-1 col-1";
+    myLabel.className = "form-check-label col-9";
+    deleteBtn.className = "btn btn-danger btn-sm col-2";
 
     //adding other attributes
     //input
     myInput.setAttribute("type", "checkbox");
-    myInput.setAttribute("id", value.id);
+    myInput.setAttribute("id", ind);
 
     //label
-    myLabel.setAttribute("for", value.id);
+    myLabel.setAttribute("for", ind);
     myLabel.textContent = value.task;
 
+    //delete btn
+    deleteBtn.setAttribute("type", "button");
+    deleteBtn.setAttribute("id", value.id);
+    deleteBtn.textContent = "Delete";
+    deleteBtn.onclick = deleteItem;
+
     //append childs
-    myLi.append(myInput, myLabel);
+    myLi.append(myInput, myLabel, deleteBtn);
     tasksList.append(myLi);
   });
 };
