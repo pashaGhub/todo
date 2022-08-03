@@ -47,26 +47,28 @@ document.getElementById("taskInput").addEventListener("keypress", (e) => {
   }
 });
 
-function deleteItem() {
-  arr = arr.filter((val) => val.id !== +this.id);
-  drawTaskList();
-}
-
 const drawTaskList = () => {
   const tasksList = document.getElementById("tasksList");
   tasksList.innerHTML = null;
+
   arr.forEach((value, ind) => {
     //creating elements
     const myLi = document.createElement("li");
     const myInput = document.createElement("input");
     const myLabel = document.createElement("label");
+    //btn group
+    const btnGroup = document.createElement("div");
     const deleteBtn = document.createElement("button");
+    const editBtn = document.createElement("button");
 
     //adding styles
     myLi.className = "container list-group-item";
     myInput.className = "form-check-input me-1 col-1";
     myLabel.className = "form-check-label col-9";
-    deleteBtn.className = "btn btn-danger btn-sm col-2";
+
+    btnGroup.className = "btn-group col-2";
+    deleteBtn.className = "btn btn-outline-danger btn-sm ";
+    editBtn.className = "btn btn-outline-primary btn-sm";
 
     //adding other attributes
     //input
@@ -77,15 +79,32 @@ const drawTaskList = () => {
     myLabel.setAttribute("for", ind);
     myLabel.textContent = value.task;
 
+    //btn group
+    btnGroup.setAttribute("role", "group");
+
     //delete btn
     deleteBtn.setAttribute("type", "button");
-    deleteBtn.setAttribute("id", value.id);
     deleteBtn.textContent = "Delete";
-    deleteBtn.onclick = deleteItem;
+
+    //edit btn
+    editBtn.setAttribute("type", "button");
+    editBtn.textContent = "Edit";
 
     //append childs
-    myLi.append(myInput, myLabel, deleteBtn);
+    //handle btn group append
+    btnGroup.append(editBtn, deleteBtn);
+    myLi.append(myInput, myLabel, btnGroup);
     tasksList.append(myLi);
+
+    //task events
+    deleteBtn.addEventListener("click", () => {
+      arr = arr.filter((val) => val.id !== value.id);
+      drawTaskList();
+    });
+
+    editBtn.addEventListener("click", () => {
+      console.log(value);
+    });
   });
 };
 
