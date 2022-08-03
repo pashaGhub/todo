@@ -17,10 +17,11 @@ let arr = [
   },
 ];
 
-document.getElementById("addBtn").addEventListener("click", () => {
+//function to draw a new task
+const addTask = () => {
   const inputValue = document.getElementById("taskInput").value;
   const input = document.getElementById("taskInput");
-
+  //  let input = obj1
   if (!inputValue.trim()) {
     alert("Incorrect value. Check if provided");
     input.value = null;
@@ -35,10 +36,18 @@ document.getElementById("addBtn").addEventListener("click", () => {
   arr.push(newTask);
   input.value = null;
   drawTaskList();
+};
+
+document.getElementById("addBtn").addEventListener("click", addTask);
+
+//draw new task on Enter
+document.getElementById("taskInput").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    addTask();
+  }
 });
 
 function deleteItem() {
-  console.log(this.id);
   arr = arr.filter((val) => val.id !== +this.id);
   drawTaskList();
 }
