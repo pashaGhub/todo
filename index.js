@@ -21,7 +21,7 @@ let arr = [
 const addTask = () => {
   const inputValue = document.getElementById("taskInput").value;
   const input = document.getElementById("taskInput");
-  //  let input = obj1
+
   if (!inputValue.trim()) {
     alert("Incorrect value. Check if provided");
     input.value = null;
@@ -51,7 +51,7 @@ const drawTaskList = () => {
   const tasksList = document.getElementById("tasksList");
   tasksList.innerHTML = null;
 
-  arr.forEach((value, ind) => {
+  arr.forEach((singleTask, ind) => {
     //creating elements
     const myLi = document.createElement("li");
     const myInput = document.createElement("input");
@@ -77,7 +77,7 @@ const drawTaskList = () => {
 
     //label
     myLabel.setAttribute("for", ind);
-    myLabel.textContent = value.task;
+    myLabel.textContent = singleTask.task;
 
     //btn group
     btnGroup.setAttribute("role", "group");
@@ -98,12 +98,22 @@ const drawTaskList = () => {
 
     //task events
     deleteBtn.addEventListener("click", () => {
-      arr = arr.filter((val) => val.id !== value.id);
+      arr = arr.filter((filterTask) => filterTask.id !== singleTask.id);
       drawTaskList();
     });
 
     editBtn.addEventListener("click", () => {
-      console.log(value);
+      const updatedTask = prompt("Update your task:", singleTask.task);
+
+      if (updatedTask?.trim()) {
+        const newTask = {
+          ...singleTask,
+          task: updatedTask,
+        };
+
+        arr.splice(ind, 1, newTask);
+        drawTaskList();
+      }
     });
   });
 };
