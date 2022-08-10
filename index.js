@@ -1,3 +1,5 @@
+let sortByName = false;
+
 //function to draw a new task
 const addTask = () => {
   const inputValue = document.getElementById("taskInput").value;
@@ -41,6 +43,12 @@ const drawTaskList = () => {
   const lsArr = JSON.parse(window.localStorage.getItem("tasks"));
   let arr = lsArr ? lsArr : [];
 
+  if (sortByName) {
+    console.log("sort triggered");
+    arr.sort((a, b) => (a.task > b.task ? 1 : b.task > a.task ? -1 : 0));
+  }
+  console.log("sortByName", sortByName);
+  console.log("tasks", arr);
   arr.forEach((singleTask, ind) => {
     //creating elements
     const myLi = document.createElement("li");
@@ -108,5 +116,12 @@ const drawTaskList = () => {
     });
   });
 };
+
+document.getElementById("sortByName").addEventListener("click", function () {
+  sortByName = !sortByName;
+
+  sortByName ? this.classList.add("active") : this.classList.remove("active");
+  drawTaskList();
+});
 
 drawTaskList();

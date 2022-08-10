@@ -12,6 +12,13 @@
       crossorigin="anonymous"
     />
     <title>Document</title>
+    <style>
+      .active,
+      .btn:hover,
+      .btn:focus {
+        color: #fff !important;
+      }
+    </style>
   </head>
   <body>
     <header class="bg-dark">
@@ -47,7 +54,16 @@
         </div>
       </div>
       <h2 class="mt-4">My tasks:</h2>
-
+      <div class="row mb-2">
+        <div class="btn-group col-4" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-outline-info" id="sortByName">
+            Sort by name
+          </button>
+          <button type="button" class="btn btn-outline-info" id="sortByDate">
+            Sort by date
+          </button>
+        </div>
+      </div>
       <div class="row">
         <ul class="list-group list-group-flush" id="tasksList"></ul>
       </div>
