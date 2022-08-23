@@ -12,6 +12,7 @@
       crossorigin="anonymous"
     />
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
       .active,
       .btn:hover,
@@ -34,7 +35,17 @@
       </div>
     </header>
 
-    <main class="container">
+    <main class="row">
+      <nav class="col-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <div id="activeTask" style="cursor: pointer" class="nav-link active-nav" aria-current="page">Active</div>
+          </li>
+          <li class="nav-item">
+            <div id="completedTask" style="cursor: pointer" class="nav-link">Completed</div>
+          </li>
+      </nav>
+      <div class="col-9">
       <div class="row mt-4">
         <div class="col-12 col-sm-5">
           <div class="form-floating">
@@ -65,8 +76,9 @@
         </div>
       </div>
       <div class="row">
-        <ul class="list-group list-group-flush" id="tasksList"></ul>
+        <ul class="container list-group list-group-flush" id="tasksList"></ul>
       </div>
+    </div>
     </main>
 
     <!--Bootstrap JavaScript Bundle with Popper -->
