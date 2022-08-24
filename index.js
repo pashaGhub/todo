@@ -59,7 +59,7 @@ const drawTaskList = () => {
   //get data from localStorage
   const lsArr = JSON.parse(window.localStorage.getItem("tasks"));
   let arr = lsArr ? lsArr : [];
-  console.log(lsArr);
+
   if (sortByName) {
     arr.sort((a, b) => (a.task > b.task ? 1 : b.task > a.task ? -1 : 0));
   }
@@ -226,3 +226,44 @@ document.getElementById("completedTask").addEventListener("click", function () {
 });
 
 drawTaskList();
+
+function getWeather() {
+  fetch("https://weatherdbi.herokuapp.com/data/weather/alaska")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+
+      const weatherContainer = document.getElementById("weather");
+
+      //create elements
+      const weatherInfo = document.createElement("div");
+      const weatherImg = document.createElement("img");
+      const weatherDescription = document.createElement("h5");
+      const weatherTemp = document.createElement("h3");
+      const weatherText = document.createElement("div");
+      const location = document.createElement("h1");
+      const date = document.createElement("h3");
+
+      //adding styles
+      weatherInfo.className = "weather-info";
+      weatherTemp.className = "temperature";
+      weatherText.className = "weather-text";
+
+      //adding attributes
+      weatherImg.setAttribute("src", data.currentConditions.iconURL);
+      weatherImg.setAttribute("alt", "weather icon");
+
+      //adding textContent
+      weatherDescription.textContent = data.currentConditions.comment;
+      weatherTemp.textContent = `°C ${data.currentConditions.temp.c}`;
+      location.textContent = data.region;
+      date.textContent = data.currentConditions.dayhour;
+
+      //appending
+      weatherInfo.append(weatherImg, weatherDescription);
+      weatherText.append(location, date);
+
+      weatherContainer.append(weatherInfo, weatherTemp, weatherText);
+    });
+}
+getWeather();

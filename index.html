@@ -18,6 +18,24 @@
       .btn:hover,
       .btn:focus {
         color: #fff !important;
+      
+      }
+      .temperature {
+        margin-right: 1rem;
+      }
+
+      .weather-info h5 {
+        font-size: 0.8rem;
+      }
+
+      .weather-text {
+        font-size: 1rem;
+      }
+      .weather-text h1 {
+        font-size: 1em;
+      }
+      .weather-text h3 {
+        font-size: .8em;
       }
     </style>
   </head>
@@ -58,10 +76,22 @@
             <label for="taskInput" style="left: 5px">My task to do</label>
           </div>
         </div>
-        <div class="col-12 col-sm-4">
+        <div class="col-12 col-sm-2">
           <button type="button " class="btn btn-dark" id="addBtn">
             add task
           </button>
+        </div>
+
+        <div id="weather" class="col-12 col-sm-5 d-flex align-items-center">
+          <!-- <div class="weather-info">
+            <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="">
+            <h5>Mostly sunny</h5>
+          </div>
+          <h3 class="temperature">°C 28</h3>
+          <div class="weather-text" >
+            <h1>Vilnius, Lithuania</h1>
+            <h3>Wednesday 7:00 PM</h3>   
+          </div> -->
         </div>
       </div>
       <h2 class="mt-4">My tasks:</h2>
