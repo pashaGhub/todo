@@ -1,56 +1,20 @@
+import { formatDate } from "./helpers/dateHelpers.js";
+import { addTask } from "./helpers/taskHelpers.js";
+
 let sortByName = false;
 let sortByDate = false;
 let taskStatus = "active"; //status can be: active and completed
 
-//function to draw a new task
-const addTask = () => {
-  const inputValue = document.getElementById("taskInput").value;
-  const input = document.getElementById("taskInput");
-
-  if (!inputValue.trim()) {
-    alert("Incorrect value. Check if provided");
-    input.value = null;
-    return;
-  }
-
-  const newTask = {
-    id: new Date().getTime(),
-    task: inputValue,
-    status: "active", //status can be: active and completed
-  };
-
-  const lsArr = JSON.parse(window.localStorage.getItem("tasks"));
-  let arr = lsArr ? lsArr : [];
-  arr.push(newTask);
-
-  window.localStorage.setItem("tasks", JSON.stringify(arr));
-
-  input.value = null;
-  drawTaskList();
-};
-
-document.getElementById("addBtn").addEventListener("click", addTask);
+document.getElementById("addBtn").addEventListener("click", () => {
+  addTask(drawTaskList);
+});
 
 //draw new task on Enter
 document.getElementById("taskInput").addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    addTask();
+    addTask(drawTaskList);
   }
 });
-
-// function to read date
-const formatDate = (date) => {
-  const addZero = (num) => (num < 10 ? "0" + num : num);
-
-  const h = addZero(new Date(date).getHours());
-  const min = addZero(new Date(date).getMinutes());
-  const s = addZero(new Date(date).getSeconds());
-  const d = addZero(new Date(date).getDate());
-  const mon = addZero(new Date(date).getMonth() + 1);
-  const y = new Date(date).getFullYear();
-
-  return `${h}:${min}:${s} \xa0 ${d}-${mon}-${y}`;
-};
 
 const drawTaskList = () => {
   const tasksList = document.getElementById("tasksList");
